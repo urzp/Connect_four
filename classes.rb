@@ -1,12 +1,12 @@
 
 class Game
-  def initilaze
+  def initialize
   end
 
 end
 
 class Player
-  def initilase
+  def initialize
   end
 
 end
