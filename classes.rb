@@ -9,11 +9,12 @@ class Game
   def turn(player, plase)
     marker = player.marker
     plase = plase - 1
-    if @board.all? { |row| row[plase] = " " }
+    if @board.all? { |row| row[plase] == " " }
        @board[-1][plase] = marker
     else
       @board.each_with_index do |row, index|
         if row[plase] != " "
+          @board[index-1][plase] = marker
         end
       end
     end
