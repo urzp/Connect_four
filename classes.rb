@@ -19,7 +19,8 @@ class Game
       end
     end
     self.draw_board
-
+    player_turn = plaer_1 if player_turn == plaer_2
+    player_turn = plaer_2 if player_turn == plaer_1
   end
 
   def draw_board
