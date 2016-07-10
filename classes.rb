@@ -1,7 +1,9 @@
 
 class Game
     attr :board
-  def initialize
+  def initialize (player_1, player_2)
+    @player_1 = player_1
+    @player_2 = player_2
     row = Array.new(7, " ")
     @board = Array.new(6){ |i|  i = Array.new(7, " ") }
   end
@@ -19,8 +21,7 @@ class Game
       end
     end
     self.draw_board
-    player_turn = plaer_1 if player_turn == plaer_2
-    player_turn = plaer_2 if player_turn == plaer_1
+    next_turn
   end
 
   def draw_board
@@ -31,7 +32,10 @@ class Game
     end
   end
 private
-
+def next_turn
+  player_turn = @plaer_1 if player_turn == @plaer_2
+  player_turn = @plaer_2 if player_turn == @plaer_1
+end
 
 end
 
