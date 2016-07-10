@@ -24,6 +24,19 @@ class Game
     next_turn
   end
 
+  def coin_toss
+    if rand > 0.5
+      @player_turn = @player_1
+     else
+      @player_turn = @player_2
+    end
+      return @player_turn
+  end
+
+  def who_turn?
+    @player_turn
+  end
+
   def draw_board
     puts "  1   2   3   4   5   6   7  "
     @board.each do |row|
@@ -32,10 +45,10 @@ class Game
     end
   end
 private
-def next_turn
-  player_turn = @plaer_1 if player_turn == @plaer_2
-  player_turn = @plaer_2 if player_turn == @plaer_1
-end
+  def next_turn
+    @player_turn = @plaer_1 if @player_turn == @plaer_2
+    @player_turn = @plaer_2 if @player_turn == @plaer_1
+  end
 
 end
 
