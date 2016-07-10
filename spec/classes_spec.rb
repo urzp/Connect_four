@@ -15,16 +15,49 @@ describe Game do
     expect(@game).to be_instance_of Game
   end
 
-    it "shold put \"O\"  marker in the plase 1" do
-      plase = 4
-      @game.turn(@player_1, plase)
-      plase = 4
-      @game.turn(@player_2, plase)
+    it "shold swith betwen player_1 and player_2" do
+      if @game.who_turn? == @player_1
+        plase = 4
+        @game.turn(plase)
+        expect(@game.who_turn?).to eq @player_2
+        plase = 4
+        @game.turn(plase)
+        expect(@game.who_turn?).to eq @player_1
+        plase = 4
+        @game.turn(plase)
+        expect(@game.who_turn?).to eq @player_2
+        plase = 4
+        @game.turn(plase)
+        expect(@game.who_turn?).to eq @player_1
+      else
+        plase = 4
+        @game.turn(plase)
+        expect(@game.who_turn?).to eq @player_1
+        plase = 4
+        @game.turn(plase)
+        expect(@game.who_turn?).to eq @player_2
+        plase = 4
+        @game.turn(plase)
+        expect(@game.who_turn?).to eq @player_1
+        plase = 4
+        @game.turn(plase)
+        expect(@game.who_turn?).to eq @player_2
+      end
+
    end
 
+context "Test #coin_toss" do
    it "Shold return player_1 or player_2" do
      expect(@game.coin_toss.class).to eq RSpec::Mocks::Double
    end
+end
+
+context "Test #who_turn?" do
+   it "Shold return player_1 or player_2" do
+     @game.coin_toss
+     expect(@game.who_turn?.class).to eq RSpec::Mocks::Double
+   end
+end
 
 end
 
