@@ -4,19 +4,22 @@ class Game
   def initialize (player_1, player_2)
     @player_1 = player_1
     @player_2 = player_2
+    self.coin_toss
     row = Array.new(7, " ")
     @board = Array.new(6){ |i|  i = Array.new(7, " ") }
   end
 
-  def turn(player, plase)
-    marker = player.marker
+  def turn(plase)
+    marker = @player_turn.marker
     plase = plase - 1
     if @board.all? { |row| row[plase] == " " }
        @board[-1][plase] = marker
     else
       @board.each_with_index do |row, index|
         if row[plase] != " "
+          #puts "row[plase] = #{row[plase]} inex= #{index-1} plase = #{plase}"
           @board[index-1][plase] = marker
+          break
         end
       end
     end
@@ -34,7 +37,7 @@ class Game
   end
 
   def who_turn?
-    @player_turn
+    return @player_turn
   end
 
   def draw_board
@@ -46,8 +49,12 @@ class Game
   end
 private
   def next_turn
-    @player_turn = @plaer_1 if @player_turn == @plaer_2
-    @player_turn = @plaer_2 if @player_turn == @plaer_1
+
+     if @player_turn == @player_2
+      @player_turn = @player_1
+     else
+       @player_turn = @player_2
+     end
   end
 
 end
