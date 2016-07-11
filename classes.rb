@@ -1,12 +1,12 @@
 
-ND = [[0,1],[0,2],[0,3]]
-NE = [[1,1],[2,2],[3,3]]
-ET = [[1,0],[2,0],[3,0]]
-SE = [[1,-1],[2,-2],[3,-3]]
-EH = [[0,-1],[0,-2],[0,-3]]
-EW = [[-1,-1],[-1,-2],[-3,-3]]
-WT = [[-1,0],[-2,0],[-3,0]]
-NW = [[-1,1],[-1,2],[-3,3]]
+ND = [[0,0],[0,1],[0,2],[0,3]]
+NE = [[0,0],[1,1],[2,2],[3,3]]
+ET = [[0,0],[1,0],[2,0],[3,0]]
+SE = [[0,0],[1,-1],[2,-2],[3,-3]]
+EH = [[0,0],[0,-1],[0,-2],[0,-3]]
+EW = [[0,0],[-1,-1],[-1,-2],[-3,-3]]
+WT = [[0,0],[-1,0],[-2,0],[-3,0]]
+NW = [[0,0],[-1,1],[-1,2],[-3,3]]
 DERECTIONS = [ ND, NE, ET, SE, EH, EW, WT, NW ]
 
 class Game
@@ -65,11 +65,18 @@ class Game
   def check_win
     1.upto(6) do |y|
       1.upto(7) do |x|
-        if @board[6 -y][x-1] != " "
-
+        if board?(x,y) != " "
+          DERECTIONS.each do |der|
+            line = der.map{ |pos| board?(x+pos[0], y + pos[1]) }
+            if line.all?{ |i| i == marker }
+              result = [ [x,y], der, marker ]
+              return result
+            end
+          end
         end
       end
     end
+    return false
   end
 
   def draw_board
