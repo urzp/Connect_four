@@ -1,4 +1,14 @@
 
+ND = [[0,1],[0,2],[0,3]]
+NE = [[1,1],[2,2],[3,3]]
+ET = [[1,0],[2,0],[3,0]]
+SE = [[1,-1],[2,-2],[3,-3]]
+EH = [[0,-1],[0,-2],[0,-3]]
+EW = [[-1,-1],[-1,-2],[-3,-3]]
+WT = [[-1,0],[-2,0],[-3,0]]
+NW = [[-1,1],[-1,2],[-3,3]]
+DERECTIONS = [ ND, NE, ET, SE, EH, EW, WT, NW ]
+
 class Game
     attr :board
   def initialize (player_1, player_2)
@@ -38,6 +48,28 @@ class Game
 
   def who_turn?
     return @player_turn
+  end
+
+  def board(x,y,symb)
+    return false if x < 1 || x > 7
+    return false if y < 1 || y > 6
+    @board[6 -y][x-1] = symb
+  end
+
+  def board?(x,y)
+    return false if x < 1 || x > 7
+    return false if y < 1 || y > 6
+    @board[6 -y][x-1]
+  end
+
+  def check_win
+    1.upto(6) do |y|
+      1.upto(7) do |x|
+        if @board[6 -y][x-1] != " "
+
+        end
+      end
+    end
   end
 
   def draw_board
