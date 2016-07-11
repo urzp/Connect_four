@@ -2,6 +2,8 @@
 
 require '../classes'
 
+
+
 describe Game do
   before(:each) do
     @player_1 = double('Player')
@@ -59,7 +61,30 @@ context "Test #who_turn?" do
    end
 end
 
+context "test input and read board" do
+  it "shold return false" do
+     expect(@game.board(0,1,"x")).to eq false
+  end
+
+  it "shold return false" do
+     expect(@game.board(1,0,"x")).to eq false
+  end
+
 end
+
+
+context "test plase a symbol in board" do
+  it "shod draw_board" do
+    @game.board(1,1,"x")
+    @game.board(1,2,"x")
+    @game.board(1,3,"x")
+    @game.board(1,4,"x")
+    @game.draw_board
+  end
+end
+
+end
+
 
 
 describe Player do
