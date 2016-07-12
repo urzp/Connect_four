@@ -7,9 +7,8 @@ require './classes'
   player_2 = Player.new("o",:human)
   game = Game.new(player_1,player_2)
 
-while true
-  plase = player_1.turn
-  game.turn(plase)
-  plase = player_2.turn
+while !game.check_win
+  plaer = game.who_turn?
+  plase = plaer.turn
   game.turn(plase)
 end
