@@ -164,14 +164,12 @@ context "test check_win for fulling randoms markers board" do
   end
 end
 
-
+context "test check full row" do
+    it "shold return flase" do
+      6.times { @game.turn(5) }
+      expect(@game.turn(5)).to eq false
+    end
 end
 
 
-
-describe Player do
-  it "Shold return Game Player" do
-    player = Player.new
-    expect(player).to be_instance_of Player
-  end
 end

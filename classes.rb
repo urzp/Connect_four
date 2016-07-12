@@ -22,6 +22,10 @@ class Game
   def turn(plase)
     marker = @player_turn.marker
     plase = plase - 1
+    if @board.all? { |row| row[plase] != " " }
+      puts "row is full take other row"
+      return false
+    end
     if @board.all? { |row| row[plase] == " " }
        @board[-1][plase] = marker
     else
@@ -72,15 +76,15 @@ class Game
             line = der.map{ |pos| board?(x+pos[0], y + pos[1]) }
             if line.all?{ |i| i == marker }
               result = [ [x,y], der, marker ]
-              #print "found pos=#{result[0]} der=#{der} marker=\"#{marker}\""
-              #puts
+              print "found pos=#{result[0]} der=#{der} marker=\"#{marker}\""
+              puts
               return result
             end
           end
         end
       end
     end
-    puts "didn't find a win"
+    # puts "didn't find a win"
     return false
   end
 
@@ -104,7 +108,27 @@ private
 end
 
 class Player
-  def initialize
+  attr :marker, :type
+  def initialize(marker, type = :human)
+    @marker = marker
+    @type = type
+  end
+
+  def turn()
+    if @type == :human
+      puts "Take your turn"
+      puts "Puts number between 1 or 7"
+      selection = 0
+      while !selection.between?(1, 7)
+        selection = gets.to_i
+        if !selection.between?(1, 7)
+          puts "Wrong placed number! Please put the number between 1..7 "
+        end
+      end
+      return selection
+    else
+
+    end
   end
 
 end
