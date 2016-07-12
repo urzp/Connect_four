@@ -73,15 +73,97 @@ context "test input and read board" do
 end
 
 
-context "test plase a symbol in board" do
+context "test check_win pos 1,1 for \"x\" derection 0,1-0,2-0,3 " do
   it "shod draw_board" do
     @game.board(1,1,"x")
     @game.board(1,2,"x")
     @game.board(1,3,"x")
     @game.board(1,4,"x")
     @game.draw_board
+
+    expect(@game.check_win.class).to eq Array
   end
 end
+
+context "test check_win pos 1,1 for \"o\" derection 0,1-0,2-0,3 " do
+  it "shod draw_board" do
+    @game.board(1,1,"o")
+    @game.board(1,2,"o")
+    @game.board(1,3,"o")
+    @game.board(1,4,"o")
+    @game.draw_board
+
+    expect(@game.check_win.class).to eq Array
+  end
+end
+
+context "test check_win pos 1,1 for not line \"o\" derection 0,1-0,2-0,3 " do
+  it "shod draw_board" do
+    @game.board(1,1,"o")
+    @game.board(1,2,"o")
+    @game.board(1,3,"x")
+    @game.board(1,4,"o")
+    @game.draw_board
+
+    expect(@game.check_win).to eq false
+  end
+end
+
+context "test check_win pos 1,1 for not line \"o\" derection 1,1-2,2-3,3 " do
+  it "shod draw_board" do
+    @game.board(1,1,"x")
+    @game.board(2,2,"x")
+    @game.board(3,3,"x")
+    @game.board(4,4,"x")
+    @game.draw_board
+
+    expect(@game.check_win.class).to eq Array
+  end
+end
+
+context "test check_win pos 1,1 for not line \"o\" derection 1,0-2,0-3,0 " do
+  it "shod draw_board" do
+    @game.board(1,1,"x")
+    @game.board(2,1,"x")
+    @game.board(3,1,"x")
+    @game.board(4,1,"x")
+    @game.draw_board
+
+    expect(@game.check_win.class).to eq Array
+  end
+end
+
+context "test check_win pos 1,1 for not line \"o\" derection (1,-1)-(2,-2)-(3,-3) " do
+  it "shod draw_board" do
+    @game.board(1,4,"x")
+    @game.board(2,3,"x")
+    @game.board(3,2,"x")
+    @game.board(4,1,"x")
+    @game.draw_board
+
+    expect(@game.check_win.class).to eq Array
+  end
+end
+
+context "test check_win for fulling randoms markers board" do
+  it "shod draw_board" do
+    1.upto(7) do |x|
+      1.upto(6) do |y|
+        if rand > 0.5
+          marker = "x"
+        else
+          marker = "o"
+        end
+        @game.board(x,y,marker)
+      end
+    end
+
+    @game.draw_board
+
+    @game.check_win.class
+  end
+end
+
 
 end
 
