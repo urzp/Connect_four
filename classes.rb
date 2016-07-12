@@ -88,6 +88,15 @@ class Game
     return false
   end
 
+  def board_full
+    1.upto(7) do |x|
+      1.upto(6) do |y|
+        return false if board?(x,y) == " "
+      end
+    end
+    return true
+  end
+
   def draw_board
     puts "  1   2   3   4   5   6   7  "
     @board.each do |row|
@@ -127,14 +136,14 @@ class Player
       end
     else
       selection = find_win(board)
-      break if selection != flase
+      return selection if selection != flase
       selection = find_blok(board)
-      break if selection != flase
+      return selection if selection != flase
       selection = find_3_line(board)
-      break if selection != flase
+      return selection if selection != flase
       selection = find_2_line(board)
-      break if selection != flase
-      selection = rand(board)
+      return selection if selection != flase
+      #selection = rand(board)
 
     end
     return selection
