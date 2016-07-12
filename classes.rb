@@ -114,7 +114,7 @@ class Player
     @type = type
   end
 
-  def turn()
+  def turn(board = nil)
     if @type == :human
       puts "Take your turn"
       puts "Puts number between 1 or 7"
@@ -125,10 +125,19 @@ class Player
           puts "Wrong placed number! Please put the number between 1..7 "
         end
       end
-      return selection
     else
+      selection = find_win(board)
+      break if selection != flase
+      selection = find_blok(board)
+      break if selection != flase
+      selection = find_3_line(board)
+      break if selection != flase
+      selection = find_2_line(board)
+      break if selection != flase
+      selection = rand(board)
 
     end
+    return selection
   end
 
 end
