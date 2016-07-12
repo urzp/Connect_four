@@ -65,17 +65,22 @@ class Game
   def check_win
     1.upto(6) do |y|
       1.upto(7) do |x|
-        if board?(x,y) != " "
+        marker = board?(x,y)
+        if marker != " "
+
           DERECTIONS.each do |der|
             line = der.map{ |pos| board?(x+pos[0], y + pos[1]) }
             if line.all?{ |i| i == marker }
               result = [ [x,y], der, marker ]
+              #print "found pos=#{result[0]} der=#{der} marker=\"#{marker}\""
+              #puts
               return result
             end
           end
         end
       end
     end
+    puts "didn't find a win"
     return false
   end
 
