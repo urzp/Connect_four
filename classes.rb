@@ -76,8 +76,8 @@ class Game
             line = der.map{ |pos| board?(x+pos[0], y + pos[1]) }
             if line.all?{ |i| i == marker }
               result = [ [x,y], der, marker ]
-              print "found pos=#{result[0]} der=#{der} marker=\"#{marker}\""
-              puts
+              #print "found pos=#{result[0]} der=#{der} marker=\"#{marker}\""
+              #puts
               return result
             end
           end
@@ -135,6 +135,7 @@ class Player
         end
       end
     else
+
       selection = find_win(board)
       return selection if selection != flase
       selection = find_blok(board)
@@ -148,5 +149,20 @@ class Player
     end
     return selection
   end
+private
 
+  def find_win(board)
+    1.upto(7) do |x|
+      y = take_y(board,x)
+
+    end
+  end
+
+  def take_y(board,x)
+    false if @board.all? { |row| row[x - 1] != " " }
+    return 1 if @board.all? { |row| row[x - 1] == " " }
+    board.each_with_index do |row, index|
+      return index-1  if row[x - 1] != " "
+    end
+  end
 end
