@@ -19,6 +19,10 @@ class Game
     @board = Array.new(6){ |i|  i = Array.new(7, " ") }
   end
 
+  def get_board
+    @board
+  end
+
   def turn(plase)
     marker = @player_turn.marker
     plase = plase - 1
@@ -149,7 +153,8 @@ class Player
     end
     return selection
   end
-private
+
+
 
   def find_win(board)
     1.upto(7) do |x|
@@ -159,10 +164,10 @@ private
   end
 
   def take_y(board,x)
-    false if @board.all? { |row| row[x - 1] != " " }
-    return 1 if @board.all? { |row| row[x - 1] == " " }
+    return false if board.all? { |row| row[x - 1] != " " }
+    return 1 if board.all? { |row| row[x - 1] == " " }
     board.each_with_index do |row, index|
-      return index-1  if row[x - 1] != " "
+      return 7 - index  if row[x - 1] != " "
     end
   end
 end
