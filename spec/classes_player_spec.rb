@@ -8,23 +8,32 @@ describe Player do
   end
 
 
-  it "Should return y" do
-  @game.board(2,1,"x")
-  @game.board(2,2,"x")
-  @game.board(2,3,"x")
-  @game.draw_board
-  board = @game.get_board
+  it "Should return y = 4" do
+    @game.board(2,1,"x")
+    @game.board(2,2,"x")
+    @game.board(2,3,"x")
+    @game.draw_board
+    board = @game.get_board
 
-  expect(@player_1.take_y(board,2)).to eq (4)
+    expect(@player_1.take_y(board,2)).to eq (4)
   end
 
 
-  it "Should return y" do
-  @game.board(1,1,"x")
-  @game.board(1,2,"x")
-  @game.draw_board
-  board = @game.get_board
+  it "Should return y = 3" do
+    @game.board(1,1,"x")
+    @game.board(1,2,"x")
+    @game.draw_board
+    board = @game.get_board
 
-  expect(@player_1.take_y(board,1)).to eq (3)
+    expect(@player_1.take_y(board,1)).to eq (3)
+  end
+
+  it "Shold find win line" do
+    @game.board(1,1,"x")
+    @game.board(2,1,"x")
+    @game.board(3,1,"x")
+    @game.draw_board
+    board = @game.get_board
+    @player_1.find_win(board)
   end
 end
