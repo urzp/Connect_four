@@ -4,7 +4,7 @@ NE = [[0,0],[1,1],[2,2],[3,3]]
 ET = [[0,0],[1,0],[2,0],[3,0]]
 SE = [[0,0],[1,-1],[2,-2],[3,-3]]
 EH = [[0,0],[0,-1],[0,-2],[0,-3]]
-EW = [[0,0],[-1,-1],[-1,-2],[-3,-3]]
+EW = [[0,0],[-1,-1],[-2,-2],[-3,-3]]
 WT = [[0,0],[-1,0],[-2,0],[-3,0]]
 NW = [[0,0],[-1,1],[-1,2],[-3,3]]
 DERECTIONS = [ ND, NE, ET, SE, EH, EW, WT, NW ]
@@ -121,7 +121,7 @@ private
 end
 
 class Player
-  attr :marker, :type
+  attr :marker, :type, :board
   def initialize(marker, type = :human)
     @marker = marker
     @type = type
@@ -141,13 +141,13 @@ class Player
       end
     else
 
-      selection = find_win(board)
+      selection = find_win
       return selection if selection != flase
-      selection = find_blok(board)
+      selection = find_blok
       return selection if selection != flase
-      selection = find_3_line(board)
+      selection = find_3_line
       return selection if selection != flase
-      selection = find_2_line(board)
+      selection = find_2_line
       return selection if selection != flase
       #selection = rand(board)
 
@@ -157,23 +157,39 @@ class Player
 
 
 
-  def find_win(board)
+  def find_win
     1.upto(7) do |x|
-      y = take_y(board,x)
+      y = take_y(x)
+      next if y == false
+      #puts "x=#{x} y=#{y}"
       DERECTIONS.each do |der|
         line = der.map{ |pos| board?(x+pos[0], y + pos[1]) }
+        line.delete_at(0)
+        #print line
+        #puts
         if line.all?{ |i| i == @marker }
           return [x, y]
         end
       end
     end
+    return false
   end
 
-  def take_y(board,x)
-    return false if board.all? { |row| row[x - 1] != " " }
-    return 1 if board.all? { |row| row[x - 1] == " " }
-    board.each_with_index do |row, index|
+  def take_y(x)
+    return false if @board.all? { |row| row[x - 1] != " " }
+    return 1 if @board.all? { |row| row[x - 1] == " " }
+    @board.each_with_index do |row, index|
       return 7 - index  if row[x - 1] != " "
     end
+  end
+
+  def board?(x,y)
+    return false if x < 1 || x > 7
+    return false if y < 1 || y > 6
+    @board[6 -y][x-1]
+  end
+
+  def board=(board)
+    @board = board
   end
 end
