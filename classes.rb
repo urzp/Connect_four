@@ -24,9 +24,9 @@ class Game
   end
 
   def enimy?(player)
-    @player_1 if @player_1 != player
-    @player_2 if @player_2 != player
-    false
+    return @player_1 if @player_1 != player
+    return @player_2 if @player_2 != player
+    return false
   end
 
   def turn(plase)
@@ -137,7 +137,7 @@ class Player
     @enimy = einmy
   end
 
-  def turn(board = nil)
+  def turn(board)
     @board = board
     if @type == :human
       puts "Take your turn"
@@ -152,14 +152,18 @@ class Player
     else
 
       selection = find_win
-      return selection if selection != flase
+      return selection if selection != false
       selection = find_blok
-      return selection if selection != flase
-      selection = find_3_line
-      return selection if selection != flase
-      selection = find_2_line
-      return selection if selection != flase
-      #selection = rand(board)
+      return selection if selection != false
+      selection = find_line_of_2
+      return selection if selection != false
+      selection = find_line_of_1
+      return selection if selection != false
+      selection = rand(7) + 1
+      while !self.take_y(selection)
+        selection = rand(7) + 1
+      end
+      return selection
 
     end
     return selection
@@ -173,6 +177,14 @@ class Player
     find_line(3, @enimy.marker)
   end
 
+  def find_line_of_2
+    find_line(2, self.marker)
+  end
+
+  def find_line_of_1
+    find_line(1, self.marker)
+  end
+
   def find_line(length, marker)
     1.upto(7) do |x|
       y = take_y(x)
@@ -183,7 +195,7 @@ class Player
         #print line
         #puts
         if line.all?{ |i| i == marker }
-          return [x, y]
+          return x #[x, y]
         end
       end
     end
