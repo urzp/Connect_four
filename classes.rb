@@ -23,6 +23,12 @@ class Game
     @board
   end
 
+  def enimy?(player)
+    @player_1 if @player_1 != player
+    @player_2 if @player_2 != player
+    false
+  end
+
   def turn(plase)
     marker = @player_turn.marker
     plase = plase - 1
@@ -127,6 +133,10 @@ class Player
     @type = type
   end
 
+  def see_enimy(einmy)
+    @enimy = einmy
+  end
+
   def turn(board = nil)
     @board = board
     if @type == :human
@@ -155,7 +165,13 @@ class Player
     return selection
   end
 
+  def find_win
+    find_line(3, self.marker)
+  end
 
+  def find_blok
+    find_line(3, @enimy.marker)
+  end
 
   def find_line(length, marker)
     1.upto(7) do |x|
