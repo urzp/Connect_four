@@ -88,6 +88,7 @@ class Game
               result = [ [x,y], der, marker ]
               #print "found pos=#{result[0]} der=#{der} marker=\"#{marker}\""
               #puts
+              puts "Win of player with marker \"#{marker}\""
               return result
             end
           end
