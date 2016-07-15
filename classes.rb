@@ -157,17 +157,16 @@ class Player
 
 
 
-  def find_win
+  def find_line(length, marker)
     1.upto(7) do |x|
       y = take_y(x)
       next if y == false
       #puts "x=#{x} y=#{y}"
       DERECTIONS.each do |der|
-        line = der.map{ |pos| board?(x+pos[0], y + pos[1]) }
-        line.delete_at(0)
+        line = der[1..length].map{ |pos| board?(x+pos[0], y + pos[1]) }
         #print line
         #puts
-        if line.all?{ |i| i == @marker }
+        if line.all?{ |i| i == marker }
           return [x, y]
         end
       end
