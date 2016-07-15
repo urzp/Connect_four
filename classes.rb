@@ -128,6 +128,7 @@ class Player
   end
 
   def turn(board = nil)
+    @board = board
     if @type == :human
       puts "Take your turn"
       puts "Puts number between 1 or 7"
@@ -159,7 +160,12 @@ class Player
   def find_win(board)
     1.upto(7) do |x|
       y = take_y(board,x)
-
+      DERECTIONS.each do |der|
+        line = der.map{ |pos| board?(x+pos[0], y + pos[1]) }
+        if line.all?{ |i| i == @marker }
+          return [x, y]
+        end
+      end
     end
   end
 
