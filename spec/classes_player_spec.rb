@@ -30,27 +30,27 @@ describe Player do
     expect(@player_1.take_y(1)).to eq (3)
   end
 
-  it "Shold find win line" do
+  it "Shold find win line from [4,1]" do
     @game.board(1,1,"x")
     @game.board(2,1,"x")
     @game.board(3,1,"x")
     @game.draw_board
     board = @game.get_board
     @player_1.board = board
-    expect(@player_1.find_win).to eq [4,1]
+    expect(@player_1.find_line(3,"x")).to eq [4,1]
   end
 
-  it "Shold find win line" do
+  it "Shold find win line from [1,4]" do
     @game.board(1,1,"x")
     @game.board(1,2,"x")
     @game.board(1,3,"x")
     @game.draw_board
     board = @game.get_board
     @player_1.board = board
-    expect(@player_1.find_win).to eq [1,4]
+    expect(@player_1.find_line(3,"x")).to eq [1,4]
   end
 
-  it "Shold find win line" do
+  it "Shold find win line from [4,4]" do
     @game.board(1,1,"x")
     @game.board(2,2,"x")
     @game.board(3,3,"x")
@@ -61,7 +61,27 @@ describe Player do
     board = @game.get_board
     @player_1.board = board
 
-    expect(@player_1.find_win).to eq [4,4]
+    expect(@player_1.find_line(3,"x")).to eq [4,4]
+  end
+
+  it "Shold find win line from [5,1]" do
+    @game.board(2,1,"o")
+    @game.board(4,1,"x")
+    @game.board(3,1,"x")
+    @game.draw_board
+    board = @game.get_board
+    @player_1.board = board
+    expect(@player_1.find_line(2,"x")).to eq [5,1]
+  end
+
+  it "Shold find win line from [2,2]" do
+    @game.board(2,1,"o")
+    @game.board(4,1,"x")
+    @game.board(3,1,"x")
+    @game.draw_board
+    board = @game.get_board
+    @player_1.board = board
+    expect(@player_1.find_line(1,"x")).to eq [2,2]
   end
 
 end
