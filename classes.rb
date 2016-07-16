@@ -192,11 +192,11 @@ class Player
       next if y == false
       #puts "x=#{x} y=#{y}"
       DERECTIONS.each do |der|
-        line = der[1..length].map{ |pos| board?(x+pos[0], y + pos[1]) }
+        line = der.map{ |pos| board?(x+pos[0], y + pos[1]) }
         #print line
         #puts
-        if line.all?{ |i| i == marker }
-          return x #[x, y]
+        if line[1..length].all?{ |i| i == marker }
+          return [x, y]
         end
       end
     end
